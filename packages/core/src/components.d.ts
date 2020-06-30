@@ -5,57 +5,144 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Params } from "./utils/network";
+import { EmbedEvent, EmbedEventPayload } from "./components/embed/EmbedEvent";
 export namespace Components {
-    interface MyComponent {
+    interface VimeEmbed {
         /**
-          * The first name
+          * A function which accepts the raw message received from the embedded media player via `postMessage` and converts it into a POJO.
          */
-        "first": string;
+        "decoder"?: (data: string) => Params;
         /**
-          * The last name
+          * A URL that will load the external player and media (Eg: https://www.youtube.com/embed/DyTCOwB0DVw).
          */
-        "last": string;
+        "embedSrc": string;
         /**
-          * The middle name
+          * Reflects the title attribute of the root iframe. It should contain the title of the current media.
          */
-        "middle": string;
+        "mediaTitle": string;
+        /**
+          * Where the src request had originated from without any path information.
+         */
+        "origin"?: string;
+        /**
+          * The parameters to pass to the embedded player. These are encoded as a query string and appended to the `embedSrc` prop.
+         */
+        "params": Params;
+        /**
+          * Posts a message to the embedded media player.
+         */
+        "postMessage": (message: any, target?: string | undefined) => Promise<void>;
+        /**
+          * A collection of URLs to that the browser should immediately start establishing a connection with.
+         */
+        "preconnections": string[];
+    }
+    interface VimeIcon {
+        /**
+          * The color (fill) of the icon.
+         */
+        "color": string;
+        /**
+          * The icon SVG identifier. It's expected that this points to an SVG inside a loaded sprite.
+         */
+        "icon"?: string;
+        /**
+          * The amount of transparency to add to the icon.
+         */
+        "opacity": number;
+        /**
+          * The amount to scale the size of the icon (respecting aspect ratio) up or down by.
+         */
+        "scale": number;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLVimeEmbedElement extends Components.VimeEmbed, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLVimeEmbedElement: {
+        prototype: HTMLVimeEmbedElement;
+        new (): HTMLVimeEmbedElement;
+    };
+    interface HTMLVimeIconElement extends Components.VimeIcon, HTMLStencilElement {
+    }
+    var HTMLVimeIconElement: {
+        prototype: HTMLVimeIconElement;
+        new (): HTMLVimeIconElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "vime-embed": HTMLVimeEmbedElement;
+        "vime-icon": HTMLVimeIconElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface VimeEmbed {
         /**
-          * The first name
+          * A function which accepts the raw message received from the embedded media player via `postMessage` and converts it into a POJO.
          */
-        "first"?: string;
+        "decoder"?: (data: string) => Params;
         /**
-          * The last name
+          * A URL that will load the external player and media (Eg: https://www.youtube.com/embed/DyTCOwB0DVw).
          */
-        "last"?: string;
+        "embedSrc"?: string;
         /**
-          * The middle name
+          * Reflects the title attribute of the root iframe. It should contain the title of the current media.
          */
-        "middle"?: string;
+        "mediaTitle"?: string;
+        /**
+          * Emitted when the embedded player and any new media has loaded.
+         */
+        "onVimeEmbedLoaded"?: (event: CustomEvent<EmbedEventPayload[EmbedEvent.Loaded]>) => void;
+        /**
+          * Emitted when a new message is received from the embedded player via `postMessage`.
+         */
+        "onVimeEmbedMessage"?: (event: CustomEvent<EmbedEventPayload[EmbedEvent.Message]>) => void;
+        /**
+          * Emitted when the `embedSrc` or `params` props change. The payload contains the `params` serialized into a query string and appended to `embedSrc`.
+         */
+        "onVimeEmbedSrcChange"?: (event: CustomEvent<EmbedEventPayload[EmbedEvent.SrcChange]>) => void;
+        /**
+          * Where the src request had originated from without any path information.
+         */
+        "origin"?: string;
+        /**
+          * The parameters to pass to the embedded player. These are encoded as a query string and appended to the `embedSrc` prop.
+         */
+        "params"?: Params;
+        /**
+          * A collection of URLs to that the browser should immediately start establishing a connection with.
+         */
+        "preconnections"?: string[];
+    }
+    interface VimeIcon {
+        /**
+          * The color (fill) of the icon.
+         */
+        "color"?: string;
+        /**
+          * The icon SVG identifier. It's expected that this points to an SVG inside a loaded sprite.
+         */
+        "icon"?: string;
+        /**
+          * The amount of transparency to add to the icon.
+         */
+        "opacity"?: number;
+        /**
+          * The amount to scale the size of the icon (respecting aspect ratio) up or down by.
+         */
+        "scale"?: number;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "vime-embed": VimeEmbed;
+        "vime-icon": VimeIcon;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "vime-embed": LocalJSX.VimeEmbed & JSXBase.HTMLAttributes<HTMLVimeEmbedElement>;
+            "vime-icon": LocalJSX.VimeIcon & JSXBase.HTMLAttributes<HTMLVimeIconElement>;
         }
     }
 }
