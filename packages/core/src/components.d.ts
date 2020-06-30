@@ -56,8 +56,6 @@ export namespace Components {
          */
         "scale": number;
     }
-    interface VimeYoutube {
-    }
 }
 declare global {
     interface HTMLVimeEmbedElement extends Components.VimeEmbed, HTMLStencilElement {
@@ -72,16 +70,9 @@ declare global {
         prototype: HTMLVimeIconElement;
         new (): HTMLVimeIconElement;
     };
-    interface HTMLVimeYoutubeElement extends Components.VimeYoutube, HTMLStencilElement {
-    }
-    var HTMLVimeYoutubeElement: {
-        prototype: HTMLVimeYoutubeElement;
-        new (): HTMLVimeYoutubeElement;
-    };
     interface HTMLElementTagNameMap {
         "vime-embed": HTMLVimeEmbedElement;
         "vime-icon": HTMLVimeIconElement;
-        "vime-youtube": HTMLVimeYoutubeElement;
     }
 }
 declare namespace LocalJSX {
@@ -141,12 +132,9 @@ declare namespace LocalJSX {
          */
         "scale"?: number;
     }
-    interface VimeYoutube {
-    }
     interface IntrinsicElements {
         "vime-embed": VimeEmbed;
         "vime-icon": VimeIcon;
-        "vime-youtube": VimeYoutube;
     }
 }
 export { LocalJSX as JSX };
@@ -155,7 +143,6 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "vime-embed": LocalJSX.VimeEmbed & JSXBase.HTMLAttributes<HTMLVimeEmbedElement>;
             "vime-icon": LocalJSX.VimeIcon & JSXBase.HTMLAttributes<HTMLVimeIconElement>;
-            "vime-youtube": LocalJSX.VimeYoutube & JSXBase.HTMLAttributes<HTMLVimeYoutubeElement>;
         }
     }
 }
