@@ -18,7 +18,7 @@ export namespace Components {
          */
         "embedSrc": string;
         /**
-          * Reflects the title attribute of the root iframe. It should contain the title of the current media.
+          * The title of the current media so it can be set on the inner `iframe` for screen readers.
          */
         "mediaTitle": string;
         /**
@@ -56,6 +56,21 @@ export namespace Components {
          */
         "scale": number;
     }
+    interface VimeYoutube {
+        /**
+          * X.
+         */
+        "duration": number;
+        /**
+          * Whether media playback has temporarily stopped or not. Defaults to `true` if no media has loaded or playback has not started.
+          * @inheritDoc
+         */
+        "paused": boolean;
+        /**
+          * X.
+         */
+        "playing": boolean;
+    }
 }
 declare global {
     interface HTMLVimeEmbedElement extends Components.VimeEmbed, HTMLStencilElement {
@@ -70,9 +85,16 @@ declare global {
         prototype: HTMLVimeIconElement;
         new (): HTMLVimeIconElement;
     };
+    interface HTMLVimeYoutubeElement extends Components.VimeYoutube, HTMLStencilElement {
+    }
+    var HTMLVimeYoutubeElement: {
+        prototype: HTMLVimeYoutubeElement;
+        new (): HTMLVimeYoutubeElement;
+    };
     interface HTMLElementTagNameMap {
         "vime-embed": HTMLVimeEmbedElement;
         "vime-icon": HTMLVimeIconElement;
+        "vime-youtube": HTMLVimeYoutubeElement;
     }
 }
 declare namespace LocalJSX {
@@ -86,7 +108,7 @@ declare namespace LocalJSX {
          */
         "embedSrc"?: string;
         /**
-          * Reflects the title attribute of the root iframe. It should contain the title of the current media.
+          * The title of the current media so it can be set on the inner `iframe` for screen readers.
          */
         "mediaTitle"?: string;
         /**
@@ -132,9 +154,25 @@ declare namespace LocalJSX {
          */
         "scale"?: number;
     }
+    interface VimeYoutube {
+        /**
+          * X.
+         */
+        "duration": number;
+        /**
+          * Whether media playback has temporarily stopped or not. Defaults to `true` if no media has loaded or playback has not started.
+          * @inheritDoc
+         */
+        "paused": boolean;
+        /**
+          * X.
+         */
+        "playing": boolean;
+    }
     interface IntrinsicElements {
         "vime-embed": VimeEmbed;
         "vime-icon": VimeIcon;
+        "vime-youtube": VimeYoutube;
     }
 }
 export { LocalJSX as JSX };
@@ -143,6 +181,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "vime-embed": LocalJSX.VimeEmbed & JSXBase.HTMLAttributes<HTMLVimeEmbedElement>;
             "vime-icon": LocalJSX.VimeIcon & JSXBase.HTMLAttributes<HTMLVimeIconElement>;
+            "vime-youtube": LocalJSX.VimeYoutube & JSXBase.HTMLAttributes<HTMLVimeYoutubeElement>;
         }
     }
 }

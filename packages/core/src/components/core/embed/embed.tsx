@@ -41,8 +41,7 @@ export class Embed implements ComponentInterface {
   @Prop() embedSrc = '';
 
   /**
-   * Reflects the title attribute of the root iframe. It should contain the title of the
-   * current media.
+   * The title of the current media so it can be set on the inner `iframe` for screen readers.
    */
   @Prop() mediaTitle = '';
 
