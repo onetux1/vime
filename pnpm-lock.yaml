@@ -33,6 +33,7 @@ importers:
   packages/core:
     devDependencies:
       '@stencil/core': 1.15.0
+      '@stencil/store': 1.3.0_@stencil+core@1.15.0
       '@types/jest': 25.2.3
       '@types/puppeteer': 2.0.1
       jest: 26.0.1
@@ -42,6 +43,7 @@ importers:
       puppeteer-core: 2.1.1
     specifiers:
       '@stencil/core': ^1.15.0
+      '@stencil/store': ^1.3.0
       '@types/jest': 25.2.3
       '@types/puppeteer': 2.0.1
       jest: 26.0.1
@@ -948,6 +950,14 @@ packages:
       typescript: ^3.8.0
     resolution:
       integrity: sha512-IcRseG06bdE36j28p7baLhLJapfGcYJG6p0aJhVWgh7TRcBNCReZEv6EGgYN6VX8j2LuH7LeFPXWHdA8ZZQylw==
+  /@stencil/store/1.3.0_@stencil+core@1.15.0:
+    dependencies:
+      '@stencil/core': 1.15.0
+    dev: true
+    peerDependencies:
+      '@stencil/core': '>=1.10.0'
+    resolution:
+      integrity: sha512-e1/Ru/q8P5BkqUYMF+kW54rFWyH9XRABLcxFLruUlbw+ZIGN5OwKe6Rf1vw1wQSa/6vMy0EQq5IrkRYNhENpOA==
   /@tootallnate/once/1.1.2:
     dev: true
     engines:
